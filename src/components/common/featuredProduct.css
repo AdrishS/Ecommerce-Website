@@ -1,0 +1,45 @@
+.featuredproduct__card {
+    margin-top: 1rem;
+    transition: .5s;
+    cursor: pointer;
+}
+.card__main {
+    transition: .5s;
+}
+.card__main:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.876);
+}
+
+.card__img {
+    max-width: max-content;
+    max-height: max-content;
+    transition: .5s;
+}
+
+.card__title {
+    transition: .5s;
+}
+
+.card__description {
+opacity: 0.5;
+transition: .5s;
+}
+.card__description:hover {
+    opacity: 1;
+}
+.card__price {
+    margin-top: 1rem;
+transition: .5s;
+font-weight: 700;
+}
+.card__btn {
+   margin-bottom: 1.5rem;
+    width: 50%;
+    align-self: center;
+    transition: .5s;
+    font-weight: 700;
+}
+.card__btn:hover, .card__btn:focus {
+    transform: scale(1.1);
+ }
