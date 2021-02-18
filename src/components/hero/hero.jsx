@@ -1,14 +1,16 @@
 import React from "react";
-import { Jumbotron, Container, Button } from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
+import { Jumbotron, Button } from "react-bootstrap";
 import "./hero.css";
 
-const Hero = () => {
+const Hero = ({history}) => {
   return (
     <Jumbotron fluid className="hero hero__img">
       <p className="hero__text">Bags Reimagined for Modern Life.</p>
-      <Button className="btn btn-dark hero__btn">Shop Now</Button>
+      <Button className="btn btn-dark hero__btn" onClick={()=> history.push('/shop')}>
+        Shop Now</Button>
     </Jumbotron>
   );
-};
+}
 
-export default Hero;
+export default withRouter(Hero);

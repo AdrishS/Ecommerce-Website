@@ -1,41 +1,81 @@
-import React, { useContext, useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { withRouter, Redirect } from "react-router-dom";
+import { Card, Button } from "react-bootstrap";
 import Layout from "../common/layout";
 import { ProductsContext } from "./../../context/productsContext";
-import { Card, Button, Spinner } from "react-bootstrap";
+import { CartContext } from "../../context/cartContext";
+import { isInCart } from "../../helpers";
 import "./singleProduct.css";
 
-const SingleProduct = ({ match, history }) => {
+const SingleProduct = ({ match }) => {
+  let quantity = 0;
   const { products } = useContext(ProductsContext);
+  const { addItem, incItem, cartItems, decItem, remItem } = useContext(
+    CartContext
+  );
   const { id } = match.params;
-  const [product, setProduct] = useState(null);
+  console.log(match.params.id)
+  const product = products.find((p) => Number(p.id) === Number(id));
+  if (!product) return <Redirect to="/shop" />;
 
-  useEffect(() => {
-    const product = products.find((p) => Number(p.id) === Number(id));
-    if (!product) return history.replace("/shop");
-    setProduct(product);
-  }, []);
+  try {
+    const thisItem = cartItems.filter((item) => Number(item.id) === Number(id));
+    quantity = thisItem === undefined ? 0 : thisItem[0].quantity;
+  } catch (ex) {}
 
-  let loading = false;
-  if (!product) return (loading = true);
+  const inCart = isInCart(product, cartItems);
   const { title, imageUrl, price, description } = product;
 
-return (
+  return (
     <Layout>
-      {loading && <Spinner animation="border" size="lg" />}
       <div className="row">
         <div className="col-sm-12 col-md-6 product__box">
           <Card.Img className="product__img" variant="top" src={imageUrl} />
           <Card.Body>
-          <Card.Title className="product__title"><h2>{title}</h2></Card.Title>
+            <Card.Title className="product__title mobile">
+              <h2>{title}</h2>
+            </Card.Title>
           </Card.Body>
         </div>
         <div className="col-sm-12 col-md-6 product__box">
           <Card.Body>
-          <Card.Subtitle className="product__price"><h4>Price: $ {price}</h4></Card.Subtitle>
-          <Button className="product__btn" variant="dark">Add to Cart</Button>
-          <Button className="product__btn" variant="dark">Proceed To Checkout</Button>
-          <Card.Text className="product__description" >{description}</Card.Text>
+            <Card.Subtitle className="product__price  mobile">
+              <h4>Price: $ {price}</h4>
+            </Card.Subtitle>
+            {!inCart && (
+              <Button
+                className="product__btn add"
+                onClick={() => addItem(product)} >
+                Add to Cart
+              </Button>
+            )}
+
+            {inCart && (
+              <Button
+                className="product__btn plus"
+                onClick={() => incItem(product)} >
+                 <i class="fa fa-plus"></i>
+              </Button>
+            )}
+            {quantity > 1 && (
+              <Button
+                className="product__btn minus"
+                onClick={() => decItem(product)} >
+                 <i class="fa fa-minus"></i>
+              </Button>
+            )}
+
+            {quantity === 1 && (
+              <Button
+                className="product__btn del"
+                onClick={() => remItem(product)} >
+               <i class="fa fa-times"></i>  
+              </Button>
+            )}
+            <Button className="product__btn long">Proceed To Checkout</Button>
+            <Card.Text className="product__description">
+              {description}
+            </Card.Text>
           </Card.Body>
         </div>
       </div>
