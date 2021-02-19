@@ -8,15 +8,12 @@ import "./header.css";
 
 const Header = () => {
   return (
-    <Navbar className="navbar__custom" expand="md" >
+    <Navbar className="navbar__custom">
     <Navbar.Brand ><Link to="/" style={{textDecoration: 'none'}} ><h1 className="nav__brand">LeavesBeat</h1></Link></Navbar.Brand>
-    <Navbar.Toggle  className="nav__toggle" aria-controls="navbar-nav" />
-    <Navbar.Collapse id="navbar-nav">
     <Nav className="mr-auto">
           <Link  to="/shop" className="nav__link"><span ><h4 >Store</h4></span ></Link>
     </Nav>
     <CartIcon />
-    </Navbar.Collapse>
   </Navbar>
   );
 };

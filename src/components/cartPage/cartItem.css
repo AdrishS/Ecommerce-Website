@@ -34,7 +34,13 @@
     padding: 1rem;
     margin-top: 10px;
     justify-items: center;
+    border-style: none;
   }
+
+  .cart__item:hover {
+    border-style: none;
+  }
+
   .cart__info {
     width: 100%;
     padding: 5px;

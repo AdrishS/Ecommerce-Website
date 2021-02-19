@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
-import { Card, Button, Modal } from "react-bootstrap";
+import { Card, button, Modal } from "react-bootstrap";
 import Layout from "../common/layout";
 import { ProductsContext } from "./../../context/productsContext";
 import { CartContext } from "../../context/cartContext";
@@ -15,7 +15,7 @@ const SingleProduct = ({ match, history }) => {
     CartContext
   );
   const { id } = match.params;
-  console.log(match.params.id)
+  console.log(match.params.id);
   const product = products.find((p) => Number(p.id) === Number(id));
   if (!product) return <Redirect to="/shop" />;
 
@@ -35,10 +35,16 @@ const SingleProduct = ({ match, history }) => {
             className="product__img"
             variant="top"
             src={imageUrl}
-            onClick={() => setShow(true)}/>
-          <Modal show={show} onHide={()=> setShow(false)} 
-          dialogClassName="modal" size="lg" centered >
-              <img src={imageUrl} alt={title}/>
+            onClick={() => setShow(true)}
+          />
+          <Modal
+            show={show}
+            onHide={() => setShow(false)}
+            dialogClassName="modal"
+            size="lg"
+            centered
+          >
+            <img src={imageUrl} alt={title} />
           </Modal>
 
           <Card.Body>
@@ -49,49 +55,38 @@ const SingleProduct = ({ match, history }) => {
         </div>
         <div className="col-sm-12 col-md-6 product__box">
           <Card.Body>
-            <Card.Subtitle className="product__price  mobile">
+            <Card.Subtitle className="product__price mobile">
               <h4>Price: $ {price}</h4>
             </Card.Subtitle>
-            {!inCart && (
-              <Button
-                className="product__btn add"
-                onClick={() => addItem(product)}
-              >
-                Add to Cart
-              </Button>
-            )}
 
-            {inCart && (
-              <Button
-                className="product__btn plus"
-                onClick={() => incItem(product)}
-              >
-                <i class="fa fa-plus"></i>
-              </Button>
-            )}
-            {quantity > 1 && (
-              <Button
-                className="product__btn minus"
-                onClick={() => decItem(product)}
-              >
-                <i class="fa fa-minus"></i>
-              </Button>
-            )}
+            {!inCart && <button className="product__btn add"
+                onClick={() => addItem(product)} >
+                 <i class="fa fa-plus"></i> </button> }
 
-            {quantity === 1 && (
-              <Button
-                className="product__btn del"
-                onClick={() => remItem(product)}
-              >
-                <i class="fa fa-times"></i>
-              </Button>
-            )}
-            <Button
-              className="product__btn long"
-              onClick={() => history.push("/cart")}
-            >
-              Proceed To Checkout
-            </Button>
+            {inCart && <button  className="product__btn add"
+                onClick={() => incItem(product)} >
+                <i class="fa fa-plus"></i> </button>    }
+           
+            {quantity > 1 && <button  className="product__btn minus"
+            onClick={() => decItem(product)}> <i class="fa fa-minus"></i> </button> }
+
+            {quantity <= 1 && <button className="product__btn disabled__btn" >
+            <i class="fa fa-minus"></i> </button> }
+
+            {quantity === 1 && <button className="product__btn del" 
+            onClick={() => remItem(product)}> <i class="fa fa-times"></i> </button>}
+
+            {quantity !== 1 && <button className=" product__btn disabled__btn">
+              <i class="fa fa-times"></i> </button>}
+
+            <div>
+              <button
+                className="product__btn check__out"
+                onClick={() => history.push("/cart")} >
+                Proceed To Checkout
+              </button>
+            </div>
+
             <Card.Text className="product__description">
               {description}
             </Card.Text>

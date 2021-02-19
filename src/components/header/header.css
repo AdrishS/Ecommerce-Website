@@ -34,7 +34,7 @@
     transform: scale(1);
   }
   .nav__link {
-    margin-left: 0;
+    margin-left: 10px;
   }
 }
 
