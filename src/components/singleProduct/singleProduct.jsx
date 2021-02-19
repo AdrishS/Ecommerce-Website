@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { withRouter, Redirect } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Modal } from "react-bootstrap";
 import Layout from "../common/layout";
 import { ProductsContext } from "./../../context/productsContext";
 import { CartContext } from "../../context/cartContext";
 import { isInCart } from "../../helpers";
 import "./singleProduct.css";
 
-const SingleProduct = ({ match }) => {
+const SingleProduct = ({ match, history }) => {
+  const [show, setShow] = useState(false);
   let quantity = 0;
   const { products } = useContext(ProductsContext);
   const { addItem, incItem, cartItems, decItem, remItem } = useContext(
@@ -30,7 +31,16 @@ const SingleProduct = ({ match }) => {
     <Layout>
       <div className="row">
         <div className="col-sm-12 col-md-6 product__box">
-          <Card.Img className="product__img" variant="top" src={imageUrl} />
+          <Card.Img
+            className="product__img"
+            variant="top"
+            src={imageUrl}
+            onClick={() => setShow(true)}/>
+          <Modal show={show} onHide={()=> setShow(false)} 
+          dialogClassName="modal" size="lg" centered >
+              <img src={imageUrl} alt={title}/>
+          </Modal>
+
           <Card.Body>
             <Card.Title className="product__title mobile">
               <h2>{title}</h2>
@@ -45,7 +55,8 @@ const SingleProduct = ({ match }) => {
             {!inCart && (
               <Button
                 className="product__btn add"
-                onClick={() => addItem(product)} >
+                onClick={() => addItem(product)}
+              >
                 Add to Cart
               </Button>
             )}
@@ -53,26 +64,34 @@ const SingleProduct = ({ match }) => {
             {inCart && (
               <Button
                 className="product__btn plus"
-                onClick={() => incItem(product)} >
-                 <i class="fa fa-plus"></i>
+                onClick={() => incItem(product)}
+              >
+                <i class="fa fa-plus"></i>
               </Button>
             )}
             {quantity > 1 && (
               <Button
                 className="product__btn minus"
-                onClick={() => decItem(product)} >
-                 <i class="fa fa-minus"></i>
+                onClick={() => decItem(product)}
+              >
+                <i class="fa fa-minus"></i>
               </Button>
             )}
 
             {quantity === 1 && (
               <Button
                 className="product__btn del"
-                onClick={() => remItem(product)} >
-               <i class="fa fa-times"></i>  
+                onClick={() => remItem(product)}
+              >
+                <i class="fa fa-times"></i>
               </Button>
             )}
-            <Button className="product__btn long">Proceed To Checkout</Button>
+            <Button
+              className="product__btn long"
+              onClick={() => history.push("/cart")}
+            >
+              Proceed To Checkout
+            </Button>
             <Card.Text className="product__description">
               {description}
             </Card.Text>

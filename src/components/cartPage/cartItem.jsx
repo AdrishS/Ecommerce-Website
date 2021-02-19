@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
+import { withRouter } from 'react-router-dom';
 import { MinusCircleIcon, PlusCircleIcon, TrashIcon } from "./icons";
 import { CartContext } from "../../context/cartContext";
 import { Button } from "react-bootstrap";
 import "./cartItem.css";
 
-const CartItem = (product) => {
-  const { title, price, imageUrl, quantity } = product;
+const CartItem = ({product, history}) => {
+  const { id, title, price, imageUrl, quantity } = product;
   const { incItem, decItem, remItem } = useContext(CartContext);
  
   return (
     <div className="cart__item">
       <div>
-        <img src={imageUrl} className="cart__img" />
+        <img src={imageUrl} className="cart__img" onClick={()=> history.push(`/shop/product/${id}`)} />
       </div>
       <div className="cart__info">
         <h4>{title}</h4>
@@ -40,4 +41,4 @@ const CartItem = (product) => {
   );
 };
 
-export default CartItem;
+export default withRouter(CartItem);

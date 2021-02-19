@@ -8,7 +8,7 @@ import './cartPage.css';
 const CartPage = () => {
     const {cartItems, total, itemCount} = useContext(CartContext)
     const cartTotal = {total, itemCount}
-    const allItems = cartItems.map( i => <CartItem {...i} key={i.id}/> )
+    const allItems = cartItems.map( (i) => <CartItem product={i} key={i.id}/> )
      return ( 
         <Layout>
             <div className="cart__page">

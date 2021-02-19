@@ -14,8 +14,7 @@ const Total = ({ itemCount, total, history }) => {
         <div className="buttons">
             <button className='btn__clear' onClick={() => clearCart()}>
                 <span className="empty">CLEAR CART</span></button>
-            <button className='btn__checkout'
-              onClick={() => history.push('/checkout')}>CHECKOUT</button>
+            <button className='btn__checkout'>CHECKOUT</button>
         </div>       
       </div>
   );

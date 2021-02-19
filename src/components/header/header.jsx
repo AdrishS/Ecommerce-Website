@@ -13,8 +13,7 @@ const Header = () => {
     <Navbar.Toggle  className="nav__toggle" aria-controls="navbar-nav" />
     <Navbar.Collapse id="navbar-nav">
     <Nav className="mr-auto">
-        <Link  to="/" className="nav__link"><span ><h4>Home</h4></span></Link>
-        <Link  to="/shop" className="nav__link"><span ><h4 >Store</h4></span ></Link>
+          <Link  to="/shop" className="nav__link"><span ><h4 >Store</h4></span ></Link>
     </Nav>
     <CartIcon />
     </Navbar.Collapse>

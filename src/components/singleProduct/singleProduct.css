@@ -10,6 +10,7 @@
 .product__img:hover {
   transform: scale(1.1);
 }
+
 .product__title {
   padding: 1rem 1rem 1rem 5rem;
 }

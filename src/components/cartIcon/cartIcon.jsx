@@ -6,7 +6,7 @@ import "./cartIcon.css";
 
 const CartIcon = () => {
   const { itemCount, cartItems } = useContext(CartContext);
-  console.log("cart items: ", cartItems);
+  // console.log("cart items: ", cartItems);
  return (
      <Link to="/cart" className="nav__cartIcon">
       <div className="cartIcon" >
